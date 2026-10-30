@@ -5,7 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Portal dos Pastores</title>
 <meta name="theme-color" content="#334FC4">
-<link rel="icon" href="logo-maranata-azul.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Pastores">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icone-192.png">
+<link rel="apple-touch-icon" href="icone-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -18,7 +24,9 @@
     --danger:#b3412f; --ok:#2f7a4f; --radius:14px;
   }
   *{box-sizing:border-box}
-  html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,system-ui,sans-serif}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,system-ui,sans-serif;-webkit-tap-highlight-color:transparent}
+  body{overscroll-behavior-y:none}
+  button{touch-action:manipulation}
   h1,h2,h3{font-family:"Source Serif 4",Georgia,serif;margin:0;color:var(--navy);font-weight:700}
   button,input,textarea,select{font:inherit}
   .hidden{display:none!important}
@@ -33,7 +41,7 @@
   .entrada-card .sub{color:var(--muted);margin:6px 0 26px;font-size:14px;letter-spacing:.04em;text-transform:uppercase}
   .campo{display:block;text-align:left;margin-bottom:14px}
   .campo span{display:block;font-size:13px;font-weight:600;color:var(--navy-2);margin-bottom:6px}
-  .campo input,.campo textarea,.campo select{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink)}
+  .campo input,.campo textarea,.campo select{width:100%;font-size:16px;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink)}
   .campo input:focus,.campo textarea:focus,.campo select:focus{outline:2px solid var(--gold);border-color:transparent}
   .campo textarea{min-height:110px;resize:vertical}
   .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:10px;padding:12px 18px;
@@ -51,27 +59,80 @@
   .erro{color:var(--danger);font-size:14px;min-height:20px;margin:4px 0 10px}
   .aviso-demo{margin-top:16px;font-size:12px;color:var(--muted);background:var(--gold-soft);border-radius:8px;padding:8px 10px}
 
-  /* ---------- App ---------- */
-  header.topo{background:var(--navy-2);color:#fff;padding:14px 16px;position:sticky;top:0;z-index:20}
-  .topo-in{max-width:960px;margin:0 auto;display:flex;align-items:center;gap:12px}
-  .topo .marca{flex:1;display:flex;align-items:center;gap:12px;min-width:0}
-  .topo .marca img{height:34px;width:auto}
-  .topo .marca span{color:#fff;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding-left:12px;border-left:1px solid rgba(255,255,255,.35);white-space:nowrap}
-  .papel{font-size:12px;background:rgba(255,255,255,.12);padding:4px 10px;border-radius:99px}
-  .topo .sair{background:transparent;border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:8px;padding:6px 12px;cursor:pointer}
+  /* ---------- App (estilo aplicativo) ---------- */
+  #portal{min-height:100vh}
+  .appbar{position:sticky;top:0;z-index:30;background:var(--navy-2);color:#fff;
+    padding:calc(env(safe-area-inset-top) + 10px) 8px 10px;display:flex;align-items:center;gap:4px;min-height:58px;
+    box-shadow:0 2px 12px rgba(28,44,112,.18)}
+  .ico-btn{width:42px;height:42px;flex:0 0 42px;border:0;background:transparent;color:#fff;border-radius:12px;display:grid;place-items:center;cursor:pointer}
+  .ico-btn:active{background:rgba(255,255,255,.15)}
+  .ico-btn svg{width:24px;height:24px}
+  .appbar-tit{flex:1;min-width:0;display:flex;align-items:center;gap:10px;padding-left:6px}
+  .appbar-tit img{height:30px;width:auto}
+  .appbar-tit span{font-weight:700;font-size:18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .appbar.inicio .appbar-tit span{display:none}
+  .appbar:not(.inicio) .appbar-tit img{display:none}
+  .appbar:not(.inicio) .papel{display:none}
+  .appbar.inicio #voltar{display:none}
+  .papel{font-size:11px;font-weight:600;background:rgba(255,255,255,.16);padding:4px 10px;border-radius:99px;white-space:nowrap}
 
-  nav.abas{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:var(--alt-topo,62px);z-index:15}
-  .abas-in{max-width:960px;margin:0 auto;display:flex;overflow-x:auto;scrollbar-width:none}
-  .abas-in::-webkit-scrollbar{display:none}
-  .aba{flex:1 0 auto;background:none;border:0;padding:14px 16px;color:var(--muted);font-weight:500;cursor:pointer;
-    border-bottom:3px solid transparent;white-space:nowrap}
-  .aba.ativa{color:var(--navy);border-bottom-color:var(--gold);font-weight:600}
+  main{max-width:760px;margin:0 auto;padding:16px 16px calc(96px + env(safe-area-inset-bottom))}
 
-  main{max-width:960px;margin:0 auto;padding:22px 16px 60px}
+  /* barra inferior */
+  .bottom{position:fixed;left:0;right:0;bottom:0;z-index:30;background:#fff;border-top:1px solid #e3e5ec;
+    display:flex;padding:6px 4px calc(6px + env(safe-area-inset-bottom));box-shadow:0 -4px 18px rgba(28,44,112,.07)}
+  .bottom button{flex:1;border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:3px;
+    font-size:11px;font-weight:600;color:#8a90a0;padding:6px 0;cursor:pointer;border-radius:12px}
+  .bottom button svg{width:24px;height:24px}
+  .bottom button .pilula{display:grid;place-items:center;width:56px;height:30px;border-radius:99px;transition:background .2s}
+  .bottom button.ativo{color:var(--navy-2)}
+  .bottom button.ativo .pilula{background:#e3e9ff}
+
+  /* barra lateral (computador) */
+  .lateral{display:none}
+
+  /* tela inicial */
+  .hero{background:linear-gradient(135deg,var(--azul-claro),var(--navy-2) 55%,var(--navy));color:#fff;border-radius:22px;padding:20px;margin-bottom:18px;position:relative;overflow:hidden}
+  .hero::after{content:"";position:absolute;right:-40px;top:-40px;width:170px;height:170px;border-radius:50%;background:rgba(255,255,255,.08)}
+  .hero small{display:block;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#cfdaff;font-weight:600}
+  .hero h2{color:#fff;font-size:26px;margin:4px 0 2px}
+  .hero p{margin:0;color:#e0e7ff;font-size:14px}
+  .secao-tit{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:20px 4px 10px}
+  .tiles{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+  .tile{background:#fff;border:1px solid #e6e8ef;border-radius:18px;padding:14px;display:flex;flex-direction:column;align-items:flex-start;gap:10px;
+    cursor:pointer;text-align:left;color:var(--ink);font-weight:600;font-size:15px;min-height:104px;box-shadow:0 1px 2px rgba(28,44,112,.04)}
+  .tile:active{transform:scale(.98);background:#f7f8fc}
+  .tile .ic{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;background:#e8edff;color:var(--navy-2)}
+  .tile .ic svg{width:22px;height:22px}
+  .tile small{display:block;font-weight:500;color:var(--muted);font-size:12px;margin-top:-6px}
+  .destaques{display:grid;gap:10px}
+  .dest{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid #e6e8ef;border-radius:16px;padding:12px 14px;cursor:pointer;text-align:left;width:100%;color:var(--ink)}
+  .dest .ic{flex:0 0 44px;height:44px;border-radius:14px;display:grid;place-items:center;background:var(--gold-soft);color:var(--ok)}
+  .dest .ic svg{width:22px;height:22px}
+  .dest .ic.azul{background:#e8edff;color:var(--navy-2)}
+  .dest b{display:block;font-size:15px;line-height:1.25}
+  .dest .txt{min-width:0;flex:1}
+  .dest small{display:block;font-size:13px;color:var(--muted)}
+  .dest .seta{margin-left:auto;color:#b5bac8;flex:0 0 auto}
+
+  /* bottom sheet "Mais" */
+  .sheet-fundo{position:fixed;inset:0;background:rgba(15,24,45,.45);z-index:55;display:flex;align-items:flex-end;justify-content:center;animation:aparece .2s}
+  .sheet{background:#fff;width:100%;max-width:560px;border-radius:22px 22px 0 0;padding:8px 12px calc(16px + env(safe-area-inset-bottom));animation:sobe .25s ease-out}
+  .sheet .alca{width:40px;height:5px;border-radius:9px;background:#d5d8e0;margin:4px auto 10px}
+  .sheet button{width:100%;display:flex;align-items:center;gap:14px;border:0;background:none;padding:13px 10px;font-size:16px;font-weight:600;color:var(--ink);border-radius:12px;cursor:pointer}
+  .sheet button:active{background:#f3f4f8}
+  .sheet button .ic{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:#e8edff;color:var(--navy-2)}
+  .sheet button .ic svg{width:21px;height:21px}
+  .sheet button.vermelho{color:var(--danger)} .sheet button.vermelho .ic{background:#fbeeeb;color:var(--danger)}
+  .sheet hr{border:0;border-top:1px solid #eceef3;margin:6px 0}
+  @keyframes sobe{from{transform:translateY(100%)}to{transform:none}}
+  @keyframes aparece{from{opacity:0}to{opacity:1}}
+
   .cab-secao{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:16px;flex-wrap:wrap}
   .cab-secao h2{font-size:30px}
   .cab-secao p{margin:2px 0 0;color:var(--muted);font-size:14px}
-  .busca{width:100%;padding:11px 14px;border:1px solid var(--line);border-radius:10px;margin-bottom:8px;background:#fff}
+  .busca{width:100%;font-size:16px;padding:12px 14px 12px 40px;border:1px solid var(--line);border-radius:12px;
+    background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' fill='none' stroke='%23666e80' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='8' cy='8' r='6'/%3E%3Cpath d='m17 17-4.5-4.5'/%3E%3C/svg%3E") 13px 50%/18px no-repeat;margin-bottom:8px;background:#fff}
   .busca-info{color:var(--muted);font-size:13px;margin:0 0 14px;min-height:18px}
   .trecho{margin-top:10px;padding:10px 12px;background:#f3f5fc;border-left:3px solid var(--navy-2);border-radius:6px;font-size:14px;color:#3a4256}
   .trecho small{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--navy-2);font-weight:600;margin-bottom:3px}
@@ -135,22 +196,57 @@
   .modal .rodape{display:flex;gap:10px;justify-content:flex-end;margin-top:6px}
   .dupla{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 
-  .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--navy);color:#fff;padding:10px 18px;border-radius:99px;font-size:14px;z-index:60;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+  .toast{position:fixed;left:50%;bottom:calc(90px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--navy);color:#fff;padding:10px 18px;border-radius:99px;font-size:14px;z-index:60;box-shadow:0 8px 24px rgba(0,0,0,.25)}
 
-  @media (max-width:520px){
-    .topo .marca img{height:28px}
-    .topo .marca span{font-size:11px;padding-left:10px}
-    .papel{display:none}
-    .cab-secao h2{font-size:26px}
+  /* ----- celular ----- */
+  @media (max-width:899px){
+    .cab-secao h2{display:none}
+    body.eh-admin main{padding-bottom:calc(170px + env(safe-area-inset-bottom))}
+    .cab-secao{margin-bottom:12px}
+    .cab-secao p{font-size:14px}
+    .cab-secao [data-novo]{position:fixed;right:16px;bottom:calc(84px + env(safe-area-inset-bottom));z-index:25;
+      padding:15px 20px;border-radius:18px;font-size:15px;box-shadow:0 8px 22px rgba(34,181,115,.4)}
+    .card{padding:14px;border-radius:16px;border-color:#e6e8ef}
+    .card h3{font-size:19px}
+    .ata{gap:12px}
+    .ata .ico{flex:0 0 40px;height:46px}
+    .acoes .btn{flex:1 1 auto;padding:11px 12px;font-size:14px}
+    .fundo{align-items:end;padding:0;place-items:end center}
+    .modal{max-width:none;border-radius:22px 22px 0 0;max-height:92vh;padding:12px 18px calc(18px + env(safe-area-inset-bottom));animation:sobe .25s ease-out}
+    .modal::before{content:"";display:block;width:40px;height:5px;border-radius:9px;background:#d5d8e0;margin:0 auto 12px}
+    .modal h2{font-size:23px}
+    .modal .rodape .btn{flex:1;padding:14px}
     .dupla{grid-template-columns:1fr}
-    .manual-atual{flex-direction:column;align-items:flex-start}
-    .manual-atual .capa{flex:0 0 auto;width:56px;height:72px}
-    .grade-cong{grid-template-columns:1fr 1fr;gap:8px}
-    .cong{padding:9px 10px}
-    .cong .preg{font-size:14px}
-    .sede-cultos{grid-template-columns:1fr}
-    .esc-topo .acoes{width:100%}
-    .aba{padding:14px 11px;font-size:14px}
+    .manual-atual{flex-direction:column;align-items:flex-start;padding:18px;gap:12px}
+    .manual-atual .capa{flex:0 0 auto;width:52px;height:66px}
+    .manual-atual h3{font-size:21px}
+    .manual-atual .acoes{width:100%}
+    .grade-logos{grid-template-columns:1fr 1fr;gap:10px}
+    .logo-prev{height:110px;padding:12px}
+    .logo-prev img{max-height:84px}
+    .logo-info{padding:10px 12px}
+    .logo-info .acoes{flex-direction:column}
+    .evento .data{flex:0 0 56px}
+  }
+  @media (max-width:360px){ .tiles{gap:8px} .tile{min-height:96px;font-size:14px} }
+
+  /* ----- computador ----- */
+  @media (min-width:900px){
+    .bottom{display:none}
+    .appbar{display:none}
+    .lateral{display:flex;flex-direction:column;position:fixed;top:0;bottom:0;left:0;width:250px;background:var(--navy-2);color:#fff;padding:22px 14px;z-index:30}
+    .lateral img{width:170px;margin:4px 10px 6px}
+    .lateral .sub{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#cfdaff;margin:0 12px 20px;font-weight:600}
+    .lateral button{display:flex;align-items:center;gap:12px;border:0;background:none;color:#e3e9ff;font-size:15px;font-weight:500;padding:11px 12px;border-radius:12px;cursor:pointer;text-align:left}
+    .lateral button svg{width:20px;height:20px;flex:0 0 20px}
+    .lateral button:hover{background:rgba(255,255,255,.1)}
+    .lateral button.ativo{background:#fff;color:var(--navy-2);font-weight:700}
+    .lateral .rodape-lat{margin-top:auto;border-top:1px solid rgba(255,255,255,.18);padding-top:12px}
+    .lateral .papel{display:inline-block;margin:0 12px 10px}
+    #portal main{margin-left:250px;max-width:none;padding:32px 40px 60px}
+    #portal main > *{max-width:880px}
+    .tiles{grid-template-columns:repeat(4,1fr)}
+    .cab-secao h2{font-size:32px}
   }
 </style>
 </head>
@@ -188,14 +284,16 @@
 
 <!-- ================= PORTAL ================= -->
 <section id="portal" class="hidden">
-  <header class="topo"><div class="topo-in">
-    <div class="marca"><img src="logo-maranata-branca.png" alt="Maranata"><span>Portal dos Pastores</span></div>
+  <header class="appbar inicio" id="appbar">
+    <button class="ico-btn" id="voltar" aria-label="Voltar"></button>
+    <div class="appbar-tit"><img src="logo-maranata-branca.png" alt="Maranata"><span id="tituloTela">Início</span></div>
     <span class="papel" id="papelTxt"></span>
-    <button class="sair" id="sair">Sair</button>
-  </div></header>
+    <button class="ico-btn" id="sair" aria-label="Sair"></button>
+  </header>
 
-  <nav class="abas"><div class="abas-in" id="abas"></div></nav>
+  <aside class="lateral" id="lateral"></aside>
   <main id="conteudo"></main>
+  <nav class="bottom" id="bottom"></nav>
 </section>
 
 <div id="modalRaiz"></div>
@@ -398,48 +496,136 @@ function criarApiDemo(){
    ESTADO E NAVEGAÇÃO
    ============================================================= */
 let PAPEL = null;
-let ABA = "atas";
+let ABA = "inicio";
 const cache = {};
 
-const ABAS = [
-  { id:"atas", nome:"Atas" },
-  { id:"escalas", nome:"Escala de Pregação" },
-  { id:"manual", nome:"Manual do Membro" },
-  { id:"informes", nome:"Informes" },
-  { id:"aniversariantes", nome:"Aniversariantes" },
-  { id:"agenda", nome:"Agenda" },
-  { id:"logos", nome:"Logos" }
-];
+const svg = d => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
+const ICONE = {
+  inicio: svg('<path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h5v-6h4v6h5V9.5"/>'),
+  atas: svg('<path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/><path d="M8 13h8M8 17h6"/>'),
+  escalas: svg('<rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><path d="M12 17v4M8 21h8"/>'),
+  manual: svg('<path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v17H6.5A2.5 2.5 0 0 0 4 21.5z"/><path d="M4 21.5A2.5 2.5 0 0 1 6.5 19H20v3H6.5"/><path d="M12 6v6M9 9h6"/>'),
+  informes: svg('<path d="M3 11v2a1 1 0 0 0 1 1h3l5 4V6L7 10H4a1 1 0 0 0-1 1z"/><path d="M16 8.5a5 5 0 0 1 0 7M19 5.5a9 9 0 0 1 0 13"/>'),
+  aniversariantes: svg('<rect x="3" y="8" width="18" height="5" rx="1"/><path d="M5 13v8h14v-8M12 8v13"/><path d="M12 8c-1.5-3-5-3.5-5-1.5S10 8 12 8zm0 0c1.5-3 5-3.5 5-1.5S14 8 12 8z"/>'),
+  agenda: svg('<rect x="3" y="4.5" width="18" height="17" rx="2"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/><path d="M8 14h3v3H8z"/>'),
+  logos: svg('<rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/>'),
+  mais: svg('<circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/>'),
+  sair: svg('<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5M21 12H9"/>'),
+  voltar: svg('<path d="m15 18-6-6 6-6"/>'),
+  seta: svg('<path d="m9 18 6-6-6-6"/>')
+};
 
-function montarAbas(){
-  $("#abas").innerHTML = ABAS.map(a => `<button class="aba ${a.id===ABA?"ativa":""}" data-aba="${a.id}">${a.nome}</button>`).join("");
+const ABAS = [
+  { id:"atas", nome:"Atas", desc:"Registros das reuniões" },
+  { id:"escalas", nome:"Escala de Pregação", curto:"Escala", desc:"Escala mensal" },
+  { id:"manual", nome:"Manual do Membro", curto:"Manual", desc:"Versão oficial" },
+  { id:"informes", nome:"Informes", desc:"Avisos e comunicados" },
+  { id:"aniversariantes", nome:"Aniversariantes", desc:"Datas dos pastores" },
+  { id:"agenda", nome:"Agenda", desc:"Congressos e eventos" },
+  { id:"logos", nome:"Logos", desc:"Logos oficiais" }
+];
+const NOME = id => id === "inicio" ? "Início" : (ABAS.find(a => a.id === id) || {}).nome || "";
+const BARRA = ["inicio","atas","escalas","agenda"];   // itens fixos da barra inferior
+
+function irPara(id){
+  if(id === "inicio"){ if(location.hash) location.hash = ""; else mostrar(); }
+  else if(location.hash.slice(1) !== id) location.hash = id;
 }
-$("#abas").addEventListener("click", e => {
-  const b = e.target.closest("[data-aba]"); if(!b) return;
-  ABA = b.dataset.aba; montarAbas(); carregar();
-  try{ localStorage.setItem("portal_aba", ABA); }catch(_){}
+window.addEventListener("hashchange", () => { if(PAPEL) mostrar(); });
+
+function montarNavegacao(){
+  const naBarra = BARRA.includes(ABA);
+  $("#bottom").innerHTML = BARRA.map(id => {
+    const a = ABAS.find(x => x.id === id);
+    return `<button class="${id===ABA?"ativo":""}" data-ir="${id}"><span class="pilula">${ICONE[id]}</span>${id==="inicio"?"Início":(a.curto||a.nome)}</button>`;
+  }).join("") + `<button class="${!naBarra?"ativo":""}" data-mais><span class="pilula">${ICONE.mais}</span>Mais</button>`;
+  $("#lateral").innerHTML = `<img src="logo-maranata-branca.png" alt="Maranata"><div class="sub">Portal dos Pastores</div>
+    ${["inicio", ...ABAS.map(a => a.id)].map(id => `<button class="${id===ABA?"ativo":""}" data-ir="${id}">${ICONE[id]}${NOME(id)}</button>`).join("")}
+    <div class="rodape-lat"><span class="papel">${admin()?"Administrador":"Pastor"}</span><button data-sair>${ICONE.sair}Sair</button></div>`;
+  $("#appbar").classList.toggle("inicio", ABA === "inicio");
+  $("#tituloTela").textContent = NOME(ABA);
+}
+
+function abrirMais(){
+  const fora = ABAS.filter(a => !BARRA.includes(a.id));
+  $("#modalRaiz").innerHTML = `<div class="sheet-fundo" id="sheetFundo"><div class="sheet">
+    <div class="alca"></div>
+    ${fora.map(a => `<button data-ir="${a.id}"><span class="ic">${ICONE[a.id]}</span>${a.nome}</button>`).join("")}
+    <hr><button class="vermelho" data-sair><span class="ic">${ICONE.sair}</span>Sair do portal</button>
+  </div></div>`;
+  $("#sheetFundo").addEventListener("click", e => { if(e.target.id === "sheetFundo") fecharModal(); });
+}
+const fecharModal = () => $("#modalRaiz").innerHTML = "";
+
+document.addEventListener("click", e => {
+  const ir = e.target.closest("[data-ir]");
+  if(ir){ fecharModal(); irPara(ir.dataset.ir); return; }
+  if(e.target.closest("[data-mais]")) return abrirMais();
+  if(e.target.closest("[data-sair]")){ fecharModal(); sair(); }
 });
+$("#voltar").innerHTML = ICONE.voltar;
+$("#sair").innerHTML = ICONE.sair;
+$("#voltar").onclick = () => irPara("inicio");
 
 async function abrirPortal(papel){
   PAPEL = papel;
-  try{ ABA = localStorage.getItem("portal_aba") || "atas"; }catch(_){}
-  if(!ABAS.some(a=>a.id===ABA)) ABA = "atas";
   $("#entrada").classList.add("hidden");
   $("#portal").classList.remove("hidden");
   $("#papelTxt").textContent = papel==="admin" ? "Administrador" : "Pastor";
-  montarAbas(); carregar();
+  document.body.classList.toggle("eh-admin", papel === "admin");
+  mostrar();
+}
+
+function mostrar(){
+  const h = decodeURIComponent(location.hash.slice(1));
+  ABA = ABAS.some(a => a.id === h) ? h : "inicio";
+  montarNavegacao(); window.scrollTo(0, 0); carregar();
 }
 
 async function carregar(){
   const alvo = $("#conteudo");
+  const aba = ABA;
   alvo.innerHTML = `<div class="vazio">Carregando…</div>`;
   try{
-    cache[ABA] = await api.listar(ABA);
-    RENDER[ABA](alvo, cache[ABA]);
+    if(aba === "inicio"){ await renderInicio(alvo); return; }
+    const itens = await api.listar(aba);
+    if(aba !== ABA) return;
+    cache[aba] = itens;
+    RENDER[aba](alvo, itens);
   }catch(err){
     console.error(err);
     alvo.innerHTML = `<div class="vazio">Não foi possível carregar. Verifique sua conexão e tente novamente.</div>`;
   }
+}
+
+async function renderInicio(alvo){
+  const pegar = t => api.listar(t).catch(() => []);
+  const [agenda, nivers, informes, escalas] = await Promise.all(["agenda","aniversariantes","informes","escalas"].map(pegar));
+  if(ABA !== "inicio") return;
+  const hoje = new Date(), hISO = hojeISO(), mes = hoje.getMonth()+1, dia = hoje.getDate();
+  const prox = agenda.filter(e => (e.data_fim || e.data_inicio) >= hISO).sort((a,b) => a.data_inicio.localeCompare(b.data_inicio))[0];
+  const doMes = nivers.filter(n => n.mes === mes).sort((a,b) => a.dia - b.dia);
+  const deHoje = doMes.filter(n => n.dia === dia);
+  const proxNiver = doMes.find(n => n.dia >= dia);
+  const ultInf = [...informes].sort((a,b) => (b.criado_em||"").localeCompare(a.criado_em||""))[0];
+  const refHoje = `${hoje.getFullYear()}-${String(mes).padStart(2,"0")}`;
+  const escMes = escalas.find(e => e.referencia === refHoje);
+
+  const dest = [];
+  if(deHoje.length) dest.push({ ir:"aniversariantes", ic:"aniversariantes", t:`Hoje: ${deHoje.map(n => n.nome).join(", ")} 🎉`, s:"Aniversariante do dia" });
+  if(prox) dest.push({ ir:"agenda", ic:"agenda", azul:true, t:prox.titulo, s:`Próximo evento · ${dataBR(prox.data_inicio)}${prox.local?" · "+prox.local:""}` });
+  if(ultInf) dest.push({ ir:"informes", ic:"informes", azul:true, t:ultInf.titulo, s:`Último informe · ${dataHoraBR(ultInf.criado_em)}` });
+  if(escMes) dest.push({ ir:"escalas", ic:"escalas", azul:true, t:escMes.titulo, s:"Escala do mês disponível" });
+  if(!deHoje.length && proxNiver) dest.push({ ir:"aniversariantes", ic:"aniversariantes", t:proxNiver.nome, s:`Próximo aniversariante · ${String(proxNiver.dia).padStart(2,"0")}/${String(mes).padStart(2,"0")}` });
+
+  const saud = hoje.getHours() < 12 ? "Bom dia" : hoje.getHours() < 18 ? "Boa tarde" : "Boa noite";
+  alvo.innerHTML = `
+    <div class="hero"><small>Catedral de Louvor Maranata</small><h2>${saud}!</h2><p>${admin() ? "Você está como administrador e pode publicar conteúdos." : "Bem-vindo ao Portal dos Pastores."}</p></div>
+    ${dest.length ? `<div class="secao-tit">Destaques</div><div class="destaques">${dest.map(d => `
+      <button class="dest" data-ir="${d.ir}"><span class="ic ${d.azul?"azul":""}">${ICONE[d.ic]}</span>
+        <span class="txt"><b>${esc(d.t)}</b><small>${esc(d.s)}</small></span><span class="seta">${ICONE.seta}</span></button>`).join("")}</div>` : ""}
+    <div class="secao-tit">Acessar</div>
+    <div class="tiles">${ABAS.map(a => `<button class="tile" data-ir="${a.id}"><span class="ic">${ICONE[a.id]}</span><span>${a.nome}<small>${a.desc}</small></span></button>`).join("")}</div>`;
 }
 
 const admin = () => PAPEL === "admin";
@@ -810,11 +996,15 @@ async function tentar(form, erroSel, fn){
 $("#formSenha").onsubmit = e => { e.preventDefault(); tentar(e.target, "#erroSenha", () => api.entrarPastores($("#senha").value)); };
 $("#formAdmin").onsubmit = e => { e.preventDefault(); tentar(e.target, "#erroAdmin", () => api.entrarAdmin($("#adminEmail").value.trim(), $("#adminSenha").value)); };
 
-$("#sair").onclick = async () => {
+async function sair(){
   await api.sair(); PAPEL = null;
   $("#portal").classList.add("hidden"); $("#entrada").classList.remove("hidden");
-  $("#modalRaiz").innerHTML = "";
-};
+  $("#formAdmin").classList.add("hidden"); $("#formSenha").classList.remove("hidden");
+  document.body.classList.remove("eh-admin");
+  fecharModal();
+  if(location.hash) history.replaceState(null, "", location.pathname + location.search);
+}
+$("#sair").onclick = sair;
 
 // Mantém a pessoa conectada ao reabrir o portal
 api.papelDaSessao().then(p => { if(p) abrirPortal(p); }).catch(()=>{});
