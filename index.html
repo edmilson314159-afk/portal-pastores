@@ -144,6 +144,12 @@
     .cab-secao h2{font-size:26px}
     .dupla{grid-template-columns:1fr}
     .manual-atual{flex-direction:column;align-items:flex-start}
+    .manual-atual .capa{flex:0 0 auto;width:56px;height:72px}
+    .grade-cong{grid-template-columns:1fr 1fr;gap:8px}
+    .cong{padding:9px 10px}
+    .cong .preg{font-size:14px}
+    .sede-cultos{grid-template-columns:1fr}
+    .esc-topo .acoes{width:100%}
     .aba{padding:14px 11px;font-size:14px}
   }
 </style>
@@ -248,22 +254,30 @@ async function carregarPrimeiro(bases, arquivo){
   throw new ErroBiblioteca("Biblioteca de leitura indisponível");
 }
 // Lê o texto de um PDF ou Word (.docx) no próprio navegador, para a busca nas atas
+// Abre um PDF com o pdf.js e devolve, por página, os textos com sua posição
+async function itensDoPdf(dados){
+  const base = await carregarPrimeiro([
+    "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/",
+    "https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/"
+  ], "pdf.min.js");
+  pdfjsLib.GlobalWorkerOptions.workerSrc = base + "pdf.worker.min.js";
+  const pdf = await pdfjsLib.getDocument({ data: dados }).promise;
+  const paginas = [];
+  for(let n = 1; n <= pdf.numPages; n++){
+    const c = await (await pdf.getPage(n)).getTextContent();
+    paginas.push(c.items.filter(i => typeof i.str === "string").map(i => ({
+      s: i.str, x: i.transform[4], y: i.transform[5], w: i.width || 0, h: i.height || Math.abs(i.transform[3]) || 8
+    })));
+  }
+  return paginas;
+}
+
 async function extrairTexto(arquivo){
   const ext = extensao(arquivo.name).toLowerCase();
   const dados = await arquivo.arrayBuffer();
   if(ext === "pdf"){
-    const base = await carregarPrimeiro([
-      "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/",
-      "https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/"
-    ], "pdf.min.js");
-    pdfjsLib.GlobalWorkerOptions.workerSrc = base + "pdf.worker.min.js";
-    const pdf = await pdfjsLib.getDocument({ data: dados }).promise;
-    const paginas = [];
-    for(let n = 1; n <= pdf.numPages; n++){
-      const c = await (await pdf.getPage(n)).getTextContent();
-      paginas.push(c.items.map(x => x.str).join(" "));
-    }
-    return paginas.join("\n\n").trim();
+    const paginas = await itensDoPdf(dados);
+    return paginas.map(p => p.map(x => x.s).join(" ")).join("\n\n").trim();
   }
   if(ext === "docx"){
     await carregarPrimeiro([
@@ -284,7 +298,7 @@ const api = DEMO ? criarApiDemo() : criarApiSupabase();
 
 function criarApiSupabase(){
   const sb = supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY);
-  const ordem = { atas:["data_reuniao",false], informes:["criado_em",false], aniversariantes:["mes",true], agenda:["data_inicio",true], logos:["instituicao",true], manual:["criado_em",false] };
+  const ordem = { atas:["data_reuniao",false], informes:["criado_em",false], aniversariantes:["mes",true], agenda:["data_inicio",true], logos:["instituicao",true], manual:["criado_em",false], escalas:["referencia",false] };
 
   async function papelDaSessao(){
     const { data:{ session } } = await sb.auth.getSession();
@@ -337,7 +351,7 @@ function criarApiDemo(){
   const arquivos = {};
   const pdfFalso = () => URL.createObjectURL(new Blob(["Arquivo de demonstração"],{type:"text/plain"}));
   const svgLogo = (txt, cor) => URL.createObjectURL(new Blob([`<svg xmlns="http://www.w3.org/2000/svg" width="320" height="120"><rect width="320" height="120" rx="14" fill="${cor}"/><text x="160" y="72" font-family="Georgia" font-size="34" fill="#fff" text-anchor="middle">${txt}</text></svg>`],{type:"image/svg+xml"}));
-  arquivos["demo/ata1.pdf"] = pdfFalso(); arquivos["demo/ata2.docx"] = pdfFalso(); arquivos["demo/manual.pdf"] = pdfFalso();
+  arquivos["demo/ata1.pdf"] = pdfFalso(); arquivos["demo/ata2.docx"] = pdfFalso(); arquivos["demo/manual.pdf"] = pdfFalso(); arquivos["demo/escala.pdf"] = pdfFalso();
   arquivos["demo/logo1.png"] = "logo-maranata-azul.png"; arquivos["demo/logo3.png"] = "logo-maranata-branca.png"; arquivos["demo/logo2.svg"] = svgLogo("Fundação","#22B573");
   const y = new Date().getFullYear(), m = new Date().getMonth()+1;
   const id = () => Math.random().toString(36).slice(2);
@@ -355,6 +369,10 @@ function criarApiDemo(){
     agenda:[
       {id:id(),titulo:"Retiro de Pastores",data_inicio:`${y+1}-01-08`,data_fim:`${y+1}-01-10`,horario:"",local:"A definir",descricao:"Para os casais pastorais."},
       {id:id(),titulo:"Congresso Maranata",data_inicio:`${y}-${String(m).padStart(2,"0")}-28`,data_fim:"",horario:"19h",local:"Catedral",descricao:""}
+    ],
+    escalas:[
+      {id:id(),titulo:"Escala de Pregação – Novembro",referencia:"2026-11",arquivo_path:"demo/escala.pdf",arquivo_nome:"escala-novembro.pdf",criado_em:new Date().toISOString()},
+      {id:id(),titulo:"Escala de Pregação – Outubro",referencia:"2026-10",arquivo_path:"demo/escala.pdf",arquivo_nome:"escala-outubro.pdf",criado_em:new Date().toISOString()}
     ],
     manual:[{id:id(),titulo:"Manual do Membro",observacao:"Edição 2026",arquivo_path:"demo/manual.pdf",arquivo_nome:"manual-do-membro.pdf",criado_em:new Date().toISOString()}],
     logos:[
@@ -385,6 +403,7 @@ const cache = {};
 
 const ABAS = [
   { id:"atas", nome:"Atas" },
+  { id:"escalas", nome:"Escala de Pregação" },
   { id:"manual", nome:"Manual do Membro" },
   { id:"informes", nome:"Informes" },
   { id:"aniversariantes", nome:"Aniversariantes" },
@@ -464,6 +483,43 @@ const RENDER = {
     };
     desenhar();
     $("#buscaAtas")?.addEventListener("input", e => desenhar(e.target.value));
+  },
+
+  escalas(alvo, itens){
+    const hoje = new Date();
+    const refHoje = `${hoje.getFullYear()}-${String(hoje.getMonth()+1).padStart(2,"0")}`;
+    const MESES_ = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
+    const mesDe = ref => { const [a,m] = (ref||"").split("-").map(Number); return a && m ? `${MESES_[m-1]} ${a}` : ""; };
+    let iAtual = itens.findIndex(e => e.referencia === refHoje);
+    if(iAtual < 0) iAtual = 0;
+    const atual = itens[iAtual];
+    const card = (it, i) => `
+      <div class="card ata">
+        <div class="ico">PDF</div>
+        <div class="corpo">
+          <h3>${esc(it.titulo)}</h3>
+          <div class="meta">${esc(mesDe(it.referencia))} · enviada em ${dataHoraBR(it.criado_em)}</div>
+          <div class="acoes"><button class="btn small" data-abrir="${i}">Abrir</button><button class="btn ghost small" data-baixar="${i}">Baixar</button>${botaoExcluir(i)}</div>
+        </div>
+      </div>`;
+    alvo.innerHTML = `
+      <div class="cab-secao"><div><h2>Escala de Pregação</h2><p>Escala mensal para consulta</p></div>${botaoNovo("Enviar escala")}</div>
+      ${atual ? `
+        <div class="manual-atual">
+          <div class="capa">PDF</div>
+          <div>
+            <span class="selo-atual">${atual.referencia === refHoje ? "Escala do mês" : "Mais recente"}</span>
+            <h3>${esc(atual.titulo)}</h3>
+            <div class="meta">${esc(mesDe(atual.referencia))} · enviada em ${dataHoraBR(atual.criado_em)}</div>
+            <div class="acoes">
+              <button class="btn small" data-abrir="${iAtual}">Abrir escala</button>
+              <button class="btn ghost small" data-baixar="${iAtual}">Baixar</button>
+              ${botaoExcluir(iAtual)}
+            </div>
+          </div>
+        </div>
+        ${itens.length > 1 ? `<h3 style="font-size:20px;margin:22px 0 10px">Outras escalas</h3><div class="lista">${itens.map((it,i)=> i===iAtual ? "" : card(it,i)).join("")}</div>` : ""}
+      ` : `<div class="vazio">Nenhuma escala publicada ainda.</div>`}`;
   },
 
   manual(alvo, itens){
@@ -613,6 +669,11 @@ const FORMS = {
     {n:"descricao", r:"Resumo (opcional)", t:"textarea"},
     {n:"arquivo", r:"Arquivo da ata (PDF ou Word .docx)", t:"file", obrig:true, accept:".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"}
   ]},
+  escalas:{ titulo:"Enviar escala de pregação", pasta:"escalas", campos:[
+    {n:"referencia", r:"Mês da escala", t:"month", obrig:true},
+    {n:"titulo", r:"Título", t:"text", obrig:true, ph:"Ex.: Escala de Pregação – Novembro"},
+    {n:"arquivo", r:"Arquivo da escala (PDF)", t:"file", obrig:true, accept:".pdf,application/pdf"}
+  ]},
   manual:{ titulo:"Nova versão do Manual do Membro", pasta:"manual", campos:[
     {n:"titulo", r:"Título", t:"text", obrig:true, valor:"Manual do Membro"},
     {n:"observacao", r:"Edição ou observação (opcional)", t:"text", ph:"Ex.: Edição 2026"},
@@ -694,6 +755,7 @@ function abrirFormulario(aba){
         : "A ata precisa ser um arquivo PDF ou Word (.docx). Fotos não são aceitas.";
       return;
     }
+    if(aba==="escalas" && ext !== "pdf"){ $("#erroForm").textContent = "A escala precisa ser um arquivo PDF."; return; }
     if(aba==="manual" && ext !== "pdf"){ $("#erroForm").textContent = "O Manual do Membro precisa ser um arquivo PDF."; return; }
     enviar.disabled = true;
     try{
