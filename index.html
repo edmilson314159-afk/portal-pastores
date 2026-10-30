@@ -112,6 +112,23 @@
   .dest .ic.azul{background:#e8edff;color:var(--navy-2)}
   .dest b{display:block;font-size:15px;line-height:1.25}
   .dest .txt{min-width:0;flex:1}
+  .nivers-mes{display:block;width:100%;text-align:left;background:#fff;border:1px solid #e6e8ef;border-radius:16px;padding:12px 14px;cursor:pointer;color:var(--ink)}
+  .nm-topo{display:flex;align-items:center;gap:12px}
+  .nm-topo .ic{flex:0 0 44px;height:44px;border-radius:14px;display:grid;place-items:center;background:var(--gold-soft);color:var(--ok)}
+  .nm-topo .ic svg{width:22px;height:22px}
+  .nm-topo .txt{flex:1;min-width:0}
+  .nm-topo b{display:block;font-size:15px}
+  .nm-topo small{display:block;font-size:13px;color:var(--muted)}
+  .nm-topo .seta{color:#b5bac8}
+  .seta{display:grid;place-items:center} .seta svg{width:20px;height:20px}
+  .nivers-mes ul{list-style:none;margin:10px 0 0;padding:8px 0 0;border-top:1px solid #eef0f4}
+  .nivers-mes li{display:flex;align-items:center;gap:10px;padding:5px 2px}
+  .nivers-mes .nd{flex:0 0 34px;height:34px;border-radius:50%;background:var(--navy-2);color:#fff;display:grid;place-items:center;font-weight:700;font-size:13px}
+  .nivers-mes .nn{flex:1;min-width:0;font-weight:600;font-size:14px}
+  .nivers-mes li.passou{opacity:.5}
+  .nivers-mes li.hoje{background:var(--gold-soft);border-radius:12px;padding:5px 8px;margin:2px -6px}
+  .nivers-mes li.hoje .nd{background:var(--gold)}
+  .nivers-mes .tag{font-size:11px;font-weight:700;background:var(--gold);color:#fff;padding:2px 8px;border-radius:99px}
   .dest small{display:block;font-size:13px;color:var(--muted)}
   .dest .seta{margin-left:auto;color:#b5bac8;flex:0 0 auto}
 
@@ -612,18 +629,27 @@ async function renderInicio(alvo){
   const escMes = escalas.find(e => e.referencia === refHoje);
 
   const dest = [];
-  if(deHoje.length) dest.push({ ir:"aniversariantes", ic:"aniversariantes", t:`Hoje: ${deHoje.map(n => n.nome).join(", ")} 🎉`, s:"Aniversariante do dia" });
   if(prox) dest.push({ ir:"agenda", ic:"agenda", azul:true, t:prox.titulo, s:`Próximo evento · ${dataBR(prox.data_inicio)}${prox.local?" · "+prox.local:""}` });
   if(ultInf) dest.push({ ir:"informes", ic:"informes", azul:true, t:ultInf.titulo, s:`Último informe · ${dataHoraBR(ultInf.criado_em)}` });
   if(escMes) dest.push({ ir:"escalas", ic:"escalas", azul:true, t:escMes.titulo, s:"Escala do mês disponível" });
-  if(!deHoje.length && proxNiver) dest.push({ ir:"aniversariantes", ic:"aniversariantes", t:proxNiver.nome, s:`Próximo aniversariante · ${String(proxNiver.dia).padStart(2,"0")}/${String(mes).padStart(2,"0")}` });
+
+  const MESES_N = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
+  const cardNivers = `
+    <button class="nivers-mes" data-ir="aniversariantes">
+      <div class="nm-topo"><span class="ic">${ICONE.aniversariantes}</span>
+        <span class="txt"><b>Aniversariantes de ${MESES_N[mes-1]}</b><small>${doMes.length ? `${doMes.length} pastor${doMes.length===1?"":"es"} este mês` : "Nenhum aniversariante este mês"}</small></span>
+        <span class="seta">${ICONE.seta}</span></div>
+      ${doMes.length ? `<ul>${doMes.map(n => `<li class="${n.dia===dia?"hoje":n.dia<dia?"passou":""}">
+        <span class="nd">${String(n.dia).padStart(2,"0")}</span><span class="nn">${esc(n.nome)}${n.dia===dia?" 🎉":""}</span>
+        ${n.dia===dia?`<span class="tag">Hoje</span>`:""}</li>`).join("")}</ul>` : ""}
+    </button>`;
 
   const saud = hoje.getHours() < 12 ? "Bom dia" : hoje.getHours() < 18 ? "Boa tarde" : "Boa noite";
   alvo.innerHTML = `
     <div class="hero"><small>Catedral de Louvor Maranata</small><h2>${saud}!</h2><p>${admin() ? "Você está como administrador e pode publicar conteúdos." : "Bem-vindo ao Portal dos Pastores."}</p></div>
-    ${dest.length ? `<div class="secao-tit">Destaques</div><div class="destaques">${dest.map(d => `
+    <div class="secao-tit">Destaques</div><div class="destaques">${cardNivers}${dest.map(d => `
       <button class="dest" data-ir="${d.ir}"><span class="ic ${d.azul?"azul":""}">${ICONE[d.ic]}</span>
-        <span class="txt"><b>${esc(d.t)}</b><small>${esc(d.s)}</small></span><span class="seta">${ICONE.seta}</span></button>`).join("")}</div>` : ""}
+        <span class="txt"><b>${esc(d.t)}</b><small>${esc(d.s)}</small></span><span class="seta">${ICONE.seta}</span></button>`).join("")}</div>
     <div class="secao-tit">Acessar</div>
     <div class="tiles">${ABAS.map(a => `<button class="tile" data-ir="${a.id}"><span class="ic">${ICONE[a.id]}</span><span>${a.nome}<small>${a.desc}</small></span></button>`).join("")}</div>`;
 }
