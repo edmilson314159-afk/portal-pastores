@@ -218,6 +218,10 @@
   .selo-atual{display:inline-block;font-size:11px;background:var(--gold);color:#fff;padding:2px 9px;border-radius:99px;font-weight:600;margin-bottom:6px}
 
   .lista{display:grid;gap:12px}
+  .esq{display:grid;gap:12px}
+  .esq-bloco{height:76px;border-radius:16px;background:linear-gradient(90deg,#e9ebf1 0%,#f5f6f9 50%,#e9ebf1 100%);background-size:200% 100%;animation:brilho 1.2s ease-in-out infinite}
+  .esq-bloco.alto{height:150px;border-radius:22px}
+  @keyframes brilho{from{background-position:100% 0}to{background-position:-100% 0}}
   .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px}
   .card h3{font-size:21px;line-height:1.2}
   .meta{color:var(--muted);font-size:13px;margin-top:2px}
@@ -710,28 +714,48 @@ function mostrar(){
   montarNavegacao(); window.scrollTo(0, 0); carregar();
 }
 
+const ESQUELETO = `<div class="esq">
+  <div class="esq-bloco alto"></div>
+  <div class="esq-bloco"></div><div class="esq-bloco"></div><div class="esq-bloco"></div>
+</div>`;
+const BUSCAR = {
+  inicio: async () => {
+    const pegar = t => api.listar(t).catch(() => []);
+    const [agenda, nivers, informes, escalas, fam] = await Promise.all([
+      pegar("agenda"), pegar("aniversariantes"), pegar("informes"), pegar("escalas"), api.familia().catch(() => null)]);
+    return { agenda, nivers, informes, escalas, fam };
+  },
+  familia: () => api.familia()
+};
+const DESENHAR = {
+  inicio: (alvo, d) => renderInicio(alvo, d),
+  familia: (alvo, d) => renderFamilia(alvo, d)
+};
+
+// Mostra na hora o que já foi carregado antes e atualiza em segundo plano
 async function carregar(){
   const alvo = $("#conteudo");
   const aba = ABA;
-  alvo.innerHTML = `<div class="vazio">Carregando…</div>`;
+  const desenhar = DESENHAR[aba] || ((a, itens) => RENDER[aba](a, itens));
+  const buscar = BUSCAR[aba] || (() => api.listar(aba));
+  const anterior = cache[aba];
+  if(anterior !== undefined) desenhar(alvo, anterior);
+  else alvo.innerHTML = ESQUELETO;
   try{
-    if(aba === "inicio"){ await renderInicio(alvo); return; }
-    if(aba === "familia"){ await renderFamilia(alvo); return; }
-    const itens = await api.listar(aba);
+    const novo = await buscar();
     if(aba !== ABA) return;
-    cache[aba] = itens;
-    RENDER[aba](alvo, itens);
+    const mudou = anterior === undefined || JSON.stringify(novo) !== JSON.stringify(anterior);
+    cache[aba] = novo;
+    if(mudou) desenhar(alvo, novo);
   }catch(err){
     console.error(err);
-    alvo.innerHTML = `<div class="vazio">Não foi possível carregar. Verifique sua conexão e tente novamente.</div>`;
+    if(anterior === undefined && aba === ABA)
+      alvo.innerHTML = `<div class="vazio">Não foi possível carregar. Verifique sua conexão e tente novamente.</div>`;
   }
 }
 
-async function renderInicio(alvo){
-  const pegar = t => api.listar(t).catch(() => []);
-  const [agenda, nivers, informes, escalas] = await Promise.all(["agenda","aniversariantes","informes","escalas"].map(pegar));
-  const fam = await api.familia().catch(() => null);
-  if(ABA !== "inicio") return;
+function renderInicio(alvo, dados){
+  const { agenda, nivers, informes, escalas, fam } = dados;
   const hoje = new Date(), hISO = hojeISO(), mes = hoje.getMonth()+1, dia = hoje.getDate();
   const prox = agenda.filter(e => (e.data_fim || e.data_inicio) >= hISO).sort((a,b) => a.data_inicio.localeCompare(b.data_inicio))[0];
   const doMes = nivers.filter(n => n.mes === mes).sort((a,b) => a.dia - b.dia);
@@ -1114,6 +1138,7 @@ $("#formAdmin").onsubmit = e => { e.preventDefault(); tentar(e.target, "#erroAdm
 
 async function sair(){
   await api.sair(); PAPEL = null;
+  Object.keys(cache).forEach(k => delete cache[k]);
   $("#portal").classList.add("hidden"); $("#entrada").classList.remove("hidden");
   $("#formAdmin").classList.add("hidden"); $("#formSenha").classList.remove("hidden");
   document.body.classList.remove("eh-admin");
@@ -1146,9 +1171,7 @@ function painelFamilia(f, compacto){
   </div>`;
 }
 
-async function renderFamilia(alvo){
-  const f = await api.familia();
-  if(ABA !== "familia") return;
+function renderFamilia(alvo, f){
   FAMILIA = f;
   const pend = f.igrejas.filter(g => !g.enviado), env = f.igrejas.filter(g => g.enviado);
   const mapa = g => g.endereco ? `<a class="mapa" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(g.endereco + ", São Luís - MA")}">${ICONE.mapa}${esc(g.endereco)}</a>` : "";
