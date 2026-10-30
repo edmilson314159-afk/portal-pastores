@@ -132,6 +132,60 @@
   .dest small{display:block;font-size:13px;color:var(--muted)}
   .dest .seta{margin-left:auto;color:#b5bac8;flex:0 0 auto}
 
+  /* nossa família */
+  .familia-hero{background:linear-gradient(140deg,#1f9d63,var(--gold) 45%,#2bc483);color:#fff;border-radius:22px;padding:20px;margin-bottom:16px;position:relative;overflow:hidden;box-shadow:0 10px 26px rgba(34,181,115,.25)}
+  .familia-hero::after{content:"";position:absolute;right:-50px;bottom:-60px;width:190px;height:190px;border-radius:50%;background:rgba(255,255,255,.1)}
+  .familia-hero small{display:block;font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:#e6fff2}
+  .fh-numeros{display:flex;align-items:center;gap:18px;margin:8px 0 14px}
+  .fh-numeros b{display:block;font-family:"Source Serif 4",Georgia,serif;font-size:40px;line-height:1}
+  .fh-numeros span{font-size:14px;color:#e6fff2;font-weight:600}
+  .fh-numeros .sep{width:1px;align-self:stretch;background:rgba(255,255,255,.35)}
+  .fh-barra{height:10px;border-radius:99px;background:rgba(255,255,255,.28);overflow:hidden}
+  .fh-barra i{display:block;height:100%;border-radius:99px;background:#fff;transition:width .6s}
+  .familia-hero p{margin:10px 0 0;font-size:14px;color:#f0fff7;position:relative;z-index:1}
+  .familia-hero .fh-btn{margin-top:14px;background:#fff;color:#147a4b;width:100%;padding:13px;position:relative;z-index:1}
+  .familia-hero.compacto .fh-numeros b{font-size:34px}
+  .igreja{display:flex;gap:12px;align-items:flex-start;background:#fff;border:1px solid #e6e8ef;border-radius:16px;padding:12px 14px;flex-wrap:wrap}
+  .igreja .ic{flex:0 0 42px;height:42px;border-radius:13px;display:grid;place-items:center;background:#fff3d6;color:#a26b00}
+  .igreja .ic.ok{background:var(--gold-soft);color:var(--ok)}
+  .igreja .ic svg{width:22px;height:22px}
+  .igreja .corpo{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
+  .igreja .corpo > b{font-size:15px}
+  .igreja .selo-ok{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;background:var(--gold);color:#fff;font-size:11px;vertical-align:1px;margin-left:4px}
+  .igreja .nums{display:flex;gap:14px;font-size:14px;color:var(--ink)}
+  .igreja .nums b{color:var(--navy-2);font-size:16px}
+  .igreja .mapa{display:inline-flex;align-items:center;gap:4px;font-size:13px;color:var(--navy-2);text-decoration:none}
+  .igreja .mapa svg{width:15px;height:15px;flex:0 0 15px}
+  .igreja .acoes{margin-top:0;align-self:center}
+  .igreja.pendente{border-style:dashed;border-color:#e9c97a;background:#fffdf6}
+  .historico{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+  .historico li{background:#f5f7fc;border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:2px;font-size:14px}
+  .historico li span{color:var(--muted);font-size:13px}
+
+  /* cartão de avisos */
+  .cartao-avisos{display:flex;gap:12px;align-items:flex-start;background:#fff8e6;border:1px solid #f3dfae;border-radius:18px;padding:14px;margin-bottom:14px}
+  .cartao-avisos .ic{flex:0 0 42px;height:42px;border-radius:13px;display:grid;place-items:center;background:#ffe9b3;color:#9a6a00}
+  .cartao-avisos .ic svg{width:22px;height:22px}
+  .cartao-avisos .txt{flex:1;min-width:0}
+  .cartao-avisos b{display:block;font-size:15px}
+  .cartao-avisos small{display:block;font-size:13px;color:#6b5a33;margin-top:2px}
+  .cartao-avisos .acoes{margin-top:10px}
+  .sheet.avisos{padding-left:20px;padding-right:20px;max-height:90vh;overflow:auto}
+  .sheet.avisos h2{font-size:23px;margin:2px 0 6px}
+  .sheet.avisos .intro{margin:0 0 12px;color:#3a4256}
+  .sheet .rodape{margin-top:14px}
+  .sheet .rodape.coluna{display:grid;gap:8px}
+  .sheet .rodape .btn{width:100%;justify-content:center;font-size:16px;padding:14px;color:#fff;display:flex;background:var(--navy-2);border-radius:14px}
+  .sheet .rodape .btn.danger{color:var(--danger);background:#fff;border:1px solid #ecd2cc}
+  .passos{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+  .passos li{display:flex;gap:12px;align-items:flex-start;background:#f5f7fc;border-radius:14px;padding:11px 12px;font-size:15px;line-height:1.4}
+  .passos .n{flex:0 0 28px;height:28px;border-radius:50%;background:var(--navy-2);color:#fff;display:grid;place-items:center;font-weight:700;font-size:14px}
+  .ico-inline{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:6px;background:#e3e9ff;color:#1a73e8;vertical-align:middle}
+  .ico-inline svg{width:16px;height:16px}
+  .nota{font-size:13px;color:var(--muted);background:#f3f4f8;border-radius:12px;padding:10px 12px;margin:12px 0 0}
+  .dicas{margin:0;padding-left:20px;display:grid;gap:8px;font-size:15px}
+  .lateral .rodape-lat button[data-avisos]{width:100%;margin-bottom:8px}
+
   /* bottom sheet "Mais" */
   .sheet-fundo{position:fixed;inset:0;background:rgba(15,24,45,.45);z-index:55;display:flex;align-items:flex-end;justify-content:center;animation:aparece .2s}
   .sheet{background:#fff;width:100%;max-width:560px;border-radius:22px 22px 0 0;padding:8px 12px calc(16px + env(safe-area-inset-bottom));animation:sobe .25s ease-out}
@@ -244,6 +298,11 @@
     .logo-info{padding:10px 12px}
     .logo-info .acoes{flex-direction:column}
     .evento .data{flex:0 0 56px}
+    .igreja .acoes{width:100%;padding-left:54px}
+    body:not(.eh-admin) .igreja.pendente{flex-wrap:nowrap;align-items:center}
+    body:not(.eh-admin) .igreja.pendente .acoes{width:auto;padding-left:0;flex:0 0 auto}
+    body:not(.eh-admin) .igreja.pendente .acoes .btn{flex:0 0 auto;padding:10px 14px}
+    .fh-numeros b{font-size:34px}
   }
   @media (max-width:360px){ .tiles{gap:8px} .tile{min-height:96px;font-size:14px} }
 
@@ -323,7 +382,8 @@
 const CONFIG = {
   SUPABASE_URL: "https://juayaeiyvmwteqgssfhx.supabase.co",
   SUPABASE_ANON_KEY: "sb_publishable_j4wJGZdJKAeNchELx-6peQ_smN2bgjP",
-  CONTA_PASTORES: "pastores@portalmaranata.app" // mesmo e-mail cadastrado no Supabase
+  CONTA_PASTORES: "pastores@portalmaranata.app", // mesmo e-mail cadastrado no Supabase
+  VAPID_PUBLICA: "BH0dtDexL9PvBwrObUnFehEcG5oe2nydOIzHFHTwKd4zhYymt_l5ICwgNvm0MCg90qEeuGoNrpNP9ZfrlFBJNrs" // chave pública dos avisos
 };
 
 const DEMO = !CONFIG.SUPABASE_URL;
@@ -457,6 +517,27 @@ function criarApiSupabase(){
       const opts = nomeDownload ? { download: nomeDownload } : undefined;
       const { data, error } = await sb.storage.from("pastores").createSignedUrl(caminho, 3600, opts);
       if(error) throw error; return data.signedUrl;
+    },
+    async familia(){ const { data, error } = await sb.rpc("pastores_familia"); if(error) throw error; return data; },
+    async lancarIgreja(id, d){
+      const { error } = await sb.rpc("pastores_lancar_igreja", { p_id: id, p_endereco: d.endereco, p_membros: d.membros, p_celulas: d.celulas, p_responsavel: d.responsavel });
+      if(error) throw error;
+    },
+    async novaIgreja(nome){ const { error } = await sb.from("pastores_igrejas").insert({ nome, ordem: 100 }); if(error) throw error; },
+    async renomearIgreja(id, nome){ const { error } = await sb.from("pastores_igrejas").update({ nome }).eq("id", id); if(error) throw error; },
+    async excluirIgreja(id){ const { error } = await sb.from("pastores_igrejas").delete().eq("id", id); if(error) throw error; },
+    async historicoIgreja(id){
+      const { data, error } = await sb.from("pastores_igrejas_historico").select("*").eq("igreja_id", id).order("criado_em", { ascending: false });
+      if(error) throw error; return data;
+    },
+    async registrarPush(j, plataforma){
+      const { error } = await sb.rpc("pastores_registrar_push", { p_endpoint: j.endpoint, p_p256dh: j.keys.p256dh, p_auth: j.keys.auth, p_plataforma: plataforma });
+      if(error) throw error;
+    },
+    async removerPush(endpoint){ await sb.rpc("pastores_remover_push", { p_endpoint: endpoint }); },
+    async testarPush(endpoint){
+      const { data, error } = await sb.functions.invoke("pastores-aniversarios", { body: { teste: true, endpoint } });
+      if(error || !data || !data.ok) throw error || new Error("falha no teste");
     }
   };
 }
@@ -489,13 +570,13 @@ function criarApiDemo(){
       {id:id(),titulo:"Escala de Pregação – Novembro",referencia:"2026-11",arquivo_path:"demo/escala.pdf",arquivo_nome:"escala-novembro.pdf",criado_em:new Date().toISOString()},
       {id:id(),titulo:"Escala de Pregação – Outubro",referencia:"2026-10",arquivo_path:"demo/escala.pdf",arquivo_nome:"escala-outubro.pdf",criado_em:new Date().toISOString()}
     ],
-    manual:[{id:id(),titulo:"Manual do Membro",observacao:"Edição 2026",arquivo_path:"demo/manual.pdf",arquivo_nome:"manual-do-membro.pdf",criado_em:new Date().toISOString()}],
-    logos:[
-      {id:id(),titulo:"Logo horizontal – azul",instituicao:"Igreja Maranata",arquivo_path:"demo/logo1.png",arquivo_nome:"logo-maranata-azul.png"},
-      {id:id(),titulo:"Logo horizontal – branca",instituicao:"Igreja Maranata",arquivo_path:"demo/logo3.png",arquivo_nome:"logo-maranata-branca.png"},
-      {id:id(),titulo:"Exemplo – logo da Fundação",instituicao:"Fundação Evangélica Maranata",arquivo_path:"demo/logo2.svg",arquivo_nome:"logo-fundacao.svg"}
-    ]
+    manual:[{id:id(),titulo:"Manual do Membro",observacao:"Edição 2026",arquivo_path:"demo/manual.pdf",arquivo_nome:"manual-do-membro.pdf",criado_em:new Date().toISOString()}]
   };
+  const igrejasDemo = ["CLM Turu (Sede)","CLM Vinhais","CLM Santa Rosa","CLM Vila Luizão","CLM Ipase","CLM Parque Vitória","CLM Tibiri","CLM Vila Tâmer",
+    "CLM Santa Bárbara","CLM Vila Magril","CLM São José de Ribamar","CLM Vila Vitória","CLM Maracanã","CLM Gancharia","CLM Vila do Povo","CLM Araçagy"].map(nome => ({ id: id(), nome }));
+  [[0,"Av. Exemplo, 100 – Turu",520,38,"Pr. Exemplo"],[1,"Rua A, 20 – Vinhais",140,11,"Pr. Fulano"],[4,"Rua B, 5 – Ipase",95,7,"Pr. Beltrano"],[6,"Rua C, 300 – Tibiri",80,6,"Pra. Ciclana"]]
+    .forEach(([k,endereco,membros,celulas,responsavel]) => Object.assign(igrejasDemo[k], { endereco, membros, celulas, responsavel, atualizado_em: new Date(Date.now() - k*864e5).toISOString() }));
+  const historicoDemo = [];
   return {
     async papelDaSessao(){ return papel; },
     async entrarPastores(s){ if(s!=="maranata") throw new Error("Senha incorreta."); return papel="pastor"; },
@@ -505,7 +586,24 @@ function criarApiDemo(){
     async inserir(t,l){ db[t].unshift({id:id(),criado_em:new Date().toISOString(),...l}); },
     async excluir(t,l){ db[t] = db[t].filter(x=>x.id!==l.id); },
     async enviarArquivo(p,a){ const c=`${p}/${Date.now()}-${slug(a.name)}`; arquivos[c]=URL.createObjectURL(a); return c; },
-    async urlArquivo(c){ return arquivos[c]; }
+    async urlArquivo(c){ return arquivos[c]; },
+    async familia(){
+      const lst = igrejasDemo.map(g => ({ ...g, enviado: !!g.atualizado_em }));
+      const env = lst.filter(g => g.enviado);
+      return { admin: papel === "admin", total_igrejas: lst.length, enviadas: env.length,
+        membros: env.reduce((a,g) => a + (g.membros||0), 0), celulas: env.reduce((a,g) => a + (g.celulas||0), 0), igrejas: lst };
+    },
+    async lancarIgreja(idg, d){
+      const g = igrejasDemo.find(x => x.id === idg); Object.assign(g, d, { atualizado_em: new Date().toISOString() });
+      historicoDemo.unshift({ igreja_id: idg, ...d, criado_em: new Date().toISOString() });
+    },
+    async novaIgreja(nome){ igrejasDemo.push({ id: id(), nome }); },
+    async renomearIgreja(idg, nome){ igrejasDemo.find(x => x.id === idg).nome = nome; },
+    async excluirIgreja(idg){ const k = igrejasDemo.findIndex(x => x.id === idg); igrejasDemo.splice(k, 1); },
+    async historicoIgreja(idg){ return historicoDemo.filter(h => h.igreja_id === idg); },
+    async registrarPush(){ throw new Error("demo"); },
+    async removerPush(){},
+    async testarPush(){ throw new Error("demo"); }
   };
 }
 
@@ -528,21 +626,27 @@ const ICONE = {
   logos: svg('<rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/>'),
   mais: svg('<circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/>'),
   sair: svg('<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5M21 12H9"/>'),
+  familia: svg('<circle cx="9" cy="7" r="3.2"/><path d="M3 20v-1a5 5 0 0 1 5-5h2a5 5 0 0 1 5 5v1"/><circle cx="17.5" cy="8.5" r="2.5"/><path d="M17 14h1a4 4 0 0 1 4 4v1"/>'),
+  igreja: svg('<path d="M12 2v5M10 4h4"/><path d="m5 11 7-4 7 4"/><path d="M6 10.5V21h12V10.5"/><path d="M10 21v-4a2 2 0 0 1 4 0v4"/>'),
+  mapa: svg('<path d="M12 21s-6-5.5-6-11a6 6 0 0 1 12 0c0 5.5-6 11-6 11z"/><circle cx="12" cy="10" r="2.2"/>'),
+  sino: svg('<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>'),
+  compartilhar: svg('<path d="M12 3v12M8 7l4-4 4 4"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/>'),
+  maisQuadrado: svg('<rect x="3" y="3" width="18" height="18" rx="4"/><path d="M12 8v8M8 12h8"/>'),
   voltar: svg('<path d="m15 18-6-6 6-6"/>'),
   seta: svg('<path d="m9 18 6-6-6-6"/>')
 };
 
 const ABAS = [
+  { id:"familia", nome:"Nossa Família", curto:"Família", desc:"Membros e células" },
   { id:"atas", nome:"Atas", desc:"Registros das reuniões" },
   { id:"escalas", nome:"Escala de Pregação", curto:"Escala", desc:"Escala mensal" },
   { id:"manual", nome:"Manual do Membro", curto:"Manual", desc:"Versão oficial" },
   { id:"informes", nome:"Informes", desc:"Avisos e comunicados" },
   { id:"aniversariantes", nome:"Aniversariantes", desc:"Datas dos pastores" },
-  { id:"agenda", nome:"Agenda", desc:"Congressos e eventos" },
-  { id:"logos", nome:"Logos", desc:"Logos oficiais" }
+  { id:"agenda", nome:"Agenda", desc:"Congressos e eventos" }
 ];
 const NOME = id => id === "inicio" ? "Início" : (ABAS.find(a => a.id === id) || {}).nome || "";
-const BARRA = ["inicio","atas","escalas","agenda"];   // itens fixos da barra inferior
+const BARRA = ["inicio","familia","atas","escalas"];   // itens fixos da barra inferior
 
 function irPara(id){
   if(id === "inicio"){ if(location.hash) location.hash = ""; else mostrar(); }
@@ -558,7 +662,7 @@ function montarNavegacao(){
   }).join("") + `<button class="${!naBarra?"ativo":""}" data-mais><span class="pilula">${ICONE.mais}</span>Mais</button>`;
   $("#lateral").innerHTML = `<img src="logo-maranata-branca.png" alt="Maranata"><div class="sub">Portal dos Pastores</div>
     ${["inicio", ...ABAS.map(a => a.id)].map(id => `<button class="${id===ABA?"ativo":""}" data-ir="${id}">${ICONE[id]}${NOME(id)}</button>`).join("")}
-    <div class="rodape-lat"><span class="papel">${admin()?"Administrador":"Pastor"}</span><button data-sair>${ICONE.sair}Sair</button></div>`;
+    <div class="rodape-lat"><button data-avisos>${ICONE.sino}Avisos no celular</button><span class="papel">${admin()?"Administrador":"Pastor"}</span><button data-sair>${ICONE.sair}Sair</button></div>`;
   $("#appbar").classList.toggle("inicio", ABA === "inicio");
   $("#tituloTela").textContent = NOME(ABA);
 }
@@ -568,6 +672,7 @@ function abrirMais(){
   $("#modalRaiz").innerHTML = `<div class="sheet-fundo" id="sheetFundo"><div class="sheet">
     <div class="alca"></div>
     ${fora.map(a => `<button data-ir="${a.id}"><span class="ic">${ICONE[a.id]}</span>${a.nome}</button>`).join("")}
+    <button data-avisos><span class="ic">${ICONE.sino}</span>Avisos no celular</button>
     <hr><button class="vermelho" data-sair><span class="ic">${ICONE.sair}</span>Sair do portal</button>
   </div></div>`;
   $("#sheetFundo").addEventListener("click", e => { if(e.target.id === "sheetFundo") fecharModal(); });
@@ -578,6 +683,11 @@ document.addEventListener("click", e => {
   const ir = e.target.closest("[data-ir]");
   if(ir){ fecharModal(); irPara(ir.dataset.ir); return; }
   if(e.target.closest("[data-mais]")) return abrirMais();
+  if(e.target.closest("[data-avisos]")) return abrirAvisos();
+  if(e.target.closest("[data-ativar-avisos]")) return ativarAvisos(e.target.closest("[data-ativar-avisos]"));
+  if(e.target.closest("[data-testar-avisos]")) return testarAvisos(e.target.closest("[data-testar-avisos]"));
+  if(e.target.closest("[data-desativar-avisos]")) return desativarAvisos();
+  if(e.target.closest("[data-agora-nao]")){ try{ localStorage.setItem("portal_avisos_dispensado", Date.now()); }catch(_){} $("#cartaoAvisos")?.remove(); return; }
   if(e.target.closest("[data-sair]")){ fecharModal(); sair(); }
 });
 $("#voltar").innerHTML = ICONE.voltar;
@@ -591,6 +701,7 @@ async function abrirPortal(papel){
   $("#papelTxt").textContent = papel==="admin" ? "Administrador" : "Pastor";
   document.body.classList.toggle("eh-admin", papel === "admin");
   mostrar();
+  revalidarAvisos();
 }
 
 function mostrar(){
@@ -605,6 +716,7 @@ async function carregar(){
   alvo.innerHTML = `<div class="vazio">Carregando…</div>`;
   try{
     if(aba === "inicio"){ await renderInicio(alvo); return; }
+    if(aba === "familia"){ await renderFamilia(alvo); return; }
     const itens = await api.listar(aba);
     if(aba !== ABA) return;
     cache[aba] = itens;
@@ -618,6 +730,7 @@ async function carregar(){
 async function renderInicio(alvo){
   const pegar = t => api.listar(t).catch(() => []);
   const [agenda, nivers, informes, escalas] = await Promise.all(["agenda","aniversariantes","informes","escalas"].map(pegar));
+  const fam = await api.familia().catch(() => null);
   if(ABA !== "inicio") return;
   const hoje = new Date(), hISO = hojeISO(), mes = hoje.getMonth()+1, dia = hoje.getDate();
   const prox = agenda.filter(e => (e.data_fim || e.data_inicio) >= hISO).sort((a,b) => a.data_inicio.localeCompare(b.data_inicio))[0];
@@ -646,12 +759,15 @@ async function renderInicio(alvo){
 
   const saud = hoje.getHours() < 12 ? "Bom dia" : hoje.getHours() < 18 ? "Boa tarde" : "Boa noite";
   alvo.innerHTML = `
+    <div id="cartaoAvisos"></div>
     <div class="hero"><small>Catedral de Louvor Maranata</small><h2>${saud}!</h2><p>${admin() ? "Você está como administrador e pode publicar conteúdos." : "Bem-vindo ao Portal dos Pastores."}</p></div>
+    ${fam ? painelFamilia(fam, true) : ""}
     <div class="secao-tit">Destaques</div><div class="destaques">${cardNivers}${dest.map(d => `
       <button class="dest" data-ir="${d.ir}"><span class="ic ${d.azul?"azul":""}">${ICONE[d.ic]}</span>
         <span class="txt"><b>${esc(d.t)}</b><small>${esc(d.s)}</small></span><span class="seta">${ICONE.seta}</span></button>`).join("")}</div>
     <div class="secao-tit">Acessar</div>
     <div class="tiles">${ABAS.map(a => `<button class="tile" data-ir="${a.id}"><span class="ic">${ICONE[a.id]}</span><span>${a.nome}<small>${a.desc}</small></span></button>`).join("")}</div>`;
+  desenharCartaoAvisos();
 }
 
 const admin = () => PAPEL === "admin";
@@ -823,34 +939,13 @@ const RENDER = {
       ${passados.length ? `<details class="anteriores"><summary>Eventos anteriores (${passados.length})</summary><div class="lista">${passados.map(x=>card(x,true)).join("")}</div></details>` : ""}`;
   },
 
-  logos(alvo, itens){
-    const grupos = {};
-    itens.forEach((it,i) => (grupos[it.instituicao || "Outros"] ||= []).push({it,i}));
-    alvo.innerHTML = `
-      <div class="cab-secao"><div><h2>Logos oficiais</h2><p>Novas logos da Igreja e da Fundação para baixar</p></div>${botaoNovo("Nova logo")}</div>
-      ${itens.length ? Object.keys(grupos).map(g => `
-        <div class="grupo-inst">${esc(g)}</div>
-        <div class="grade-logos" style="margin-bottom:22px">${grupos[g].map(({it,i}) => `
-          <div class="logo-card">
-            <div class="logo-prev ${/branc|white|negativ/i.test(it.titulo+" "+(it.arquivo_nome||""))?"escuro":""}"><img alt="${esc(it.titulo)}" data-prev="${i}"></div>
-            <div class="logo-info"><b>${esc(it.titulo)}</b><span class="meta">${esc(extensao(it.arquivo_nome))}</span>
-              <div class="acoes"><button class="btn small" data-baixar="${i}">Baixar</button>${botaoExcluir(i)}</div>
-            </div>
-          </div>`).join("")}
-        </div>`).join("") : `<div class="vazio">Nenhuma logo enviada ainda.</div>`}`;
-    alvo.querySelectorAll("img[data-prev]").forEach(async img => {
-      const it = itens[+img.dataset.prev];
-      if(!/\.(png|jpe?g|svg|webp|gif)$/i.test(it.arquivo_nome || it.arquivo_path)){ img.replaceWith(Object.assign(document.createElement("span"),{className:"meta",textContent:extensao(it.arquivo_nome)})); return; }
-      try{ img.src = await api.urlArquivo(it.arquivo_path); }catch(_){}
-    });
-  }
 };
 
 /* ---------------- ações nos cards ---------------- */
 $("#conteudo").addEventListener("click", async e => {
   const b = e.target.closest("button"); if(!b) return;
   const itens = cache[ABA] || [];
-  if(b.hasAttribute("data-novo")) return abrirFormulario(ABA);
+  if(b.hasAttribute("data-novo")) return ABA === "familia" ? abrirNovaIgreja() : abrirFormulario(ABA);
   if(b.dataset.abrir !== undefined || b.dataset.baixar !== undefined){
     const it = itens[+(b.dataset.abrir ?? b.dataset.baixar)];
     const baixar = b.dataset.baixar !== undefined;
@@ -915,11 +1010,6 @@ const FORMS = {
       {n:"local", r:"Local", t:"text"}
     ]},
     {n:"descricao", r:"Detalhes (opcional)", t:"textarea"}
-  ]},
-  logos:{ titulo:"Nova logo", pasta:"logos", campos:[
-    {n:"titulo", r:"Nome da logo", t:"text", obrig:true, ph:"Ex.: Logo horizontal – branca"},
-    {n:"instituicao", r:"Instituição", t:"text", obrig:true, lista:["Igreja Maranata","Fundação Evangélica Maranata"]},
-    {n:"arquivo", r:"Arquivo (PNG de preferência)", t:"file", obrig:true, accept:"image/*,.pdf,.svg,.ai,.eps"}
   ]}
 };
 
@@ -1031,6 +1121,265 @@ async function sair(){
   if(location.hash) history.replaceState(null, "", location.pathname + location.search);
 }
 $("#sair").onclick = sair;
+
+/* =============================================================
+   NOSSA FAMÍLIA (membros e células por igreja)
+   ============================================================= */
+const fmtN = n => Number(n || 0).toLocaleString("pt-BR");
+let FAMILIA = null;
+
+function painelFamilia(f, compacto){
+  const completo = f.total_igrejas > 0 && f.enviadas === f.total_igrejas;
+  const falta = f.total_igrejas - f.enviadas;
+  const pct = f.total_igrejas ? Math.round(f.enviadas / f.total_igrejas * 100) : 0;
+  return `<div class="familia-hero ${compacto ? "compacto" : ""}">
+    <small>${completo ? "Somos uma grande família" : "Somos uma grande família de…"}</small>
+    <div class="fh-numeros">
+      <div><b>${fmtN(f.membros)}</b><span>membros</span></div>
+      <div class="sep"></div>
+      <div><b>${fmtN(f.celulas)}</b><span>células</span></div>
+    </div>
+    <div class="fh-barra"><i style="width:${pct}%"></i></div>
+    <p>${completo ? `🙌 Todas as ${f.total_igrejas} igrejas enviaram seus dados. Esta é a nossa família!`
+      : `<b>${f.enviadas} de ${f.total_igrejas}</b> igrejas já enviaram. Faltam <b>${falta}</b> para conhecermos o tamanho real da nossa família.`}</p>
+    ${compacto ? `<button class="btn fh-btn" data-ir="familia">${completo ? "Ver as igrejas" : "Lançar os dados da minha igreja"}</button>` : ""}
+  </div>`;
+}
+
+async function renderFamilia(alvo){
+  const f = await api.familia();
+  if(ABA !== "familia") return;
+  FAMILIA = f;
+  const pend = f.igrejas.filter(g => !g.enviado), env = f.igrejas.filter(g => g.enviado);
+  const mapa = g => g.endereco ? `<a class="mapa" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(g.endereco + ", São Luís - MA")}">${ICONE.mapa}${esc(g.endereco)}</a>` : "";
+  const adminBts = g => admin() ? `<button class="btn ghost small" data-historico="${g.id}">Histórico</button><button class="btn danger small" data-excluir-igreja="${g.id}">Excluir</button>` : "";
+  alvo.innerHTML = `
+    <div class="cab-secao"><div><h2>Nossa Família</h2><p>Membros e células de cada igreja</p></div>${botaoNovo("Nova igreja")}</div>
+    ${painelFamilia(f, false)}
+    ${pend.length ? `<div class="secao-tit">Aguardando lançamento (${pend.length})</div>
+      <div class="lista">${pend.map(g => `<div class="igreja pendente">
+        <span class="ic">${ICONE.igreja}</span>
+        <div class="corpo"><b>${esc(g.nome)}</b><span class="meta">⏳ Aguardando os dados</span></div>
+        <div class="acoes"><button class="btn gold small" data-lancar="${g.id}">Preencher</button>${adminBts(g)}</div>
+      </div>`).join("")}</div>` : ""}
+    ${env.length ? `<div class="secao-tit">Já enviaram (${env.length})</div>
+      <div class="lista">${env.map(g => `<div class="igreja">
+        <span class="ic ok">${ICONE.igreja}</span>
+        <div class="corpo"><b>${esc(g.nome)} <span class="selo-ok">✓</span></b>
+          <div class="nums"><span><b>${fmtN(g.membros)}</b> membros</span><span><b>${fmtN(g.celulas)}</b> células</span></div>
+          ${mapa(g)}
+          <span class="meta">Enviado por ${esc(g.responsavel || "—")} em ${dataBR((g.atualizado_em||"").slice(0,10))}</span></div>
+        <div class="acoes"><button class="btn ghost small" data-lancar="${g.id}">Corrigir</button>${adminBts(g)}</div>
+      </div>`).join("")}</div>` : ""}`;
+}
+
+function abrirLancamento(idg){
+  const g = FAMILIA.igrejas.find(x => x.id === idg);
+  let nomeSalvo = ""; try{ nomeSalvo = localStorage.getItem("portal_meu_nome") || ""; }catch(_){}
+  $("#modalRaiz").innerHTML = `
+    <div class="fundo"><form class="modal" id="formIgreja">
+      <h2>${esc(g.nome)}</h2>
+      ${g.enviado ? `<p class="nota" style="margin:0 0 12px">Esta igreja já enviou os dados em ${dataBR(g.atualizado_em.slice(0,10))} (${esc(g.responsavel||"—")}). Ao salvar, os números serão substituídos e o envio anterior fica guardado no histórico.</p>` : ""}
+      ${admin() ? `<label class="campo"><span>Nome da igreja</span><input name="nome" required value="${esc(g.nome)}"></label>` : ""}
+      <label class="campo"><span>Endereço da igreja</span><input name="endereco" placeholder="Rua, número – bairro" value="${esc(g.endereco||"")}" autocomplete="street-address"></label>
+      <div class="dupla">
+        <label class="campo"><span>Quantidade de membros</span><input name="membros" type="number" inputmode="numeric" min="0" max="100000" required value="${g.enviado ? g.membros : ""}"></label>
+        <label class="campo"><span>Quantidade de células</span><input name="celulas" type="number" inputmode="numeric" min="0" max="10000" required value="${g.enviado ? g.celulas : ""}"></label>
+      </div>
+      <p class="nota" style="margin:0 0 12px"><b>Membros:</b> pessoas que fazem parte da igreja hoje. <b>Células:</b> grupos que estão se reunindo atualmente.</p>
+      <label class="campo"><span>Seu nome (quem está preenchendo)</span><input name="responsavel" required placeholder="Ex.: Pr. João da Silva" value="${esc(nomeSalvo)}"></label>
+      <div class="erro" id="erroForm"></div>
+      <div class="rodape">
+        <button type="button" class="btn ghost" id="cancelar">Cancelar</button>
+        <button type="submit" class="btn">Enviar</button>
+      </div>
+    </form></div>`;
+  $("#cancelar").onclick = fecharModal;
+  $(".fundo").addEventListener("click", e => { if(e.target.classList.contains("fundo")) fecharModal(); });
+  $("#formIgreja").onsubmit = async e => {
+    e.preventDefault();
+    const fm = e.target, bt = fm.querySelector("[type=submit]");
+    const d = { endereco: fm.endereco.value.trim(), membros: parseInt(fm.membros.value, 10), celulas: parseInt(fm.celulas.value, 10), responsavel: fm.responsavel.value.trim() };
+    if(!(d.membros >= 0) || !(d.celulas >= 0)){ $("#erroForm").textContent = "Informe a quantidade de membros e de células."; return; }
+    bt.disabled = true; bt.textContent = "Enviando…";
+    try{
+      if(admin() && fm.nome && fm.nome.value.trim() && fm.nome.value.trim() !== g.nome) await api.renomearIgreja(g.id, fm.nome.value.trim());
+      await api.lancarIgreja(g.id, d);
+      try{ localStorage.setItem("portal_meu_nome", d.responsavel); }catch(_){}
+      fecharModal(); toast(g.enviado ? "Dados atualizados!" : "Obrigado! A família ficou mais completa 🙌"); carregar();
+    }catch(err){
+      console.error(err);
+      $("#erroForm").textContent = "Não foi possível enviar. Tente novamente.";
+      bt.disabled = false; bt.textContent = "Enviar";
+    }
+  };
+}
+
+function abrirNovaIgreja(){
+  $("#modalRaiz").innerHTML = `
+    <div class="fundo"><form class="modal" id="formNovaIgreja">
+      <h2>Nova igreja</h2>
+      <label class="campo"><span>Nome da igreja</span><input name="nome" required placeholder="Ex.: CLM Cohatrac"></label>
+      <div class="erro" id="erroForm"></div>
+      <div class="rodape"><button type="button" class="btn ghost" id="cancelar">Cancelar</button><button type="submit" class="btn">Adicionar</button></div>
+    </form></div>`;
+  $("#cancelar").onclick = fecharModal;
+  $("#formNovaIgreja").onsubmit = async e => {
+    e.preventDefault();
+    try{ await api.novaIgreja(e.target.nome.value.trim()); fecharModal(); toast("Igreja adicionada."); carregar(); }
+    catch(_){ $("#erroForm").textContent = "Não foi possível adicionar (o nome já existe?)."; }
+  };
+}
+
+async function abrirHistorico(idg){
+  const g = FAMILIA.igrejas.find(x => x.id === idg);
+  const h = await api.historicoIgreja(idg).catch(() => []);
+  $("#modalRaiz").innerHTML = `<div class="sheet-fundo" id="sheetFundo"><div class="sheet avisos"><div class="alca"></div>
+    <h2>${esc(g.nome)}</h2><p class="intro">Histórico de lançamentos</p>
+    ${h.length ? `<ul class="historico">${h.map(x => `<li><b>${fmtN(x.membros)} membros · ${fmtN(x.celulas)} células</b>
+      <span>${esc(x.responsavel||"—")} · ${new Date(x.criado_em).toLocaleString("pt-BR",{dateStyle:"short",timeStyle:"short"})}</span>
+      ${x.endereco ? `<span>${esc(x.endereco)}</span>` : ""}</li>`).join("")}</ul>` : `<p class="nota">Nenhum lançamento ainda.</p>`}
+  </div></div>`;
+  $("#sheetFundo").addEventListener("click", e => { if(e.target.id === "sheetFundo") fecharModal(); });
+}
+
+$("#conteudo").addEventListener("click", async e => {
+  const l = e.target.closest("[data-lancar]"); if(l) return abrirLancamento(l.dataset.lancar);
+  const h = e.target.closest("[data-historico]"); if(h) return abrirHistorico(h.dataset.historico);
+  const x = e.target.closest("[data-excluir-igreja]");
+  if(x){
+    const g = FAMILIA.igrejas.find(i => i.id === x.dataset.excluirIgreja);
+    if(!confirm(`Excluir "${g.nome}" da lista? Os dados enviados por ela também serão apagados.`)) return;
+    try{ await api.excluirIgreja(g.id); toast("Igreja excluída."); carregar(); }catch(_){ toast("Não foi possível excluir."); }
+  }
+});
+
+/* =============================================================
+   AVISOS NO CELULAR (push)
+   ============================================================= */
+const UA = navigator.userAgent || "";
+const EH_IOS = /iPhone|iPad|iPod/i.test(UA) || (/Macintosh/.test(UA) && navigator.maxTouchPoints > 1);
+const EH_ANDROID = /Android/i.test(UA);
+const INSTALADO = () => (window.matchMedia && matchMedia("(display-mode: standalone)").matches) || navigator.standalone === true;
+const TEM_PUSH = "serviceWorker" in navigator && "PushManager" in window && "Notification" in window;
+let registroSW = null;
+
+if("serviceWorker" in navigator && location.protocol !== "file:"){
+  navigator.serviceWorker.register("sw.js").then(r => { registroSW = r; }).catch(err => console.warn("sw", err));
+}
+
+function chaveBytes(b64){
+  const pad = "=".repeat((4 - b64.length % 4) % 4);
+  const bin = atob((b64 + pad).replace(/-/g, "+").replace(/_/g, "/"));
+  return Uint8Array.from(bin, c => c.charCodeAt(0));
+}
+async function inscricaoAtual(){
+  if(!TEM_PUSH) return null;
+  try{ const reg = registroSW || await navigator.serviceWorker.ready; return await reg.pushManager.getSubscription(); }
+  catch(_){ return null; }
+}
+// situação: "ios-instalar" | "sem-suporte" | "bloqueado" | "ativo" | "inativo"
+async function situacaoAvisos(){
+  if(EH_IOS && !INSTALADO()) return "ios-instalar";
+  if(!TEM_PUSH) return "sem-suporte";
+  if(Notification.permission === "denied") return "bloqueado";
+  if(Notification.permission === "granted" && await inscricaoAtual()) return "ativo";
+  return "inativo";
+}
+
+async function desenharCartaoAvisos(){
+  const alvo = $("#cartaoAvisos"); if(!alvo) return;
+  const sit = await situacaoAvisos();
+  let dispensado = false;
+  try{ const t = +localStorage.getItem("portal_avisos_dispensado"); dispensado = t && (Date.now() - t) < 7*864e5; }catch(_){}
+  if(sit === "ativo" || sit === "sem-suporte" || sit === "bloqueado" || dispensado){ alvo.innerHTML = ""; return; }
+  alvo.innerHTML = `<div class="cartao-avisos">
+    <span class="ic">${ICONE.sino}</span>
+    <div class="txt"><b>Receba os aniversários no celular</b>
+      <small>${sit === "ios-instalar" ? "No iPhone é preciso adicionar o portal à Tela de Início antes. Veja como é simples." : "Um aviso às 8h quando for aniversário de um pastor, sem precisar abrir o portal."}</small>
+      <div class="acoes">
+        ${sit === "ios-instalar" ? `<button class="btn small" data-avisos>Ver como ativar</button>` : `<button class="btn small" data-ativar-avisos>Ativar avisos</button>`}
+        <button class="btn ghost small" data-agora-nao>Agora não</button>
+      </div></div></div>`;
+}
+
+const PASSOS_IPHONE = `
+  <ol class="passos">
+    <li><span class="n">1</span><div>Abra o link do portal no <b>Safari</b>.</div></li>
+    <li><span class="n">2</span><div>Toque no botão <b>Compartilhar</b> <span class="ico-inline">${ICONE.compartilhar}</span> na barra de baixo da tela.</div></li>
+    <li><span class="n">3</span><div>Role a lista e toque em <b>Adicionar à Tela de Início</b> <span class="ico-inline">${ICONE.maisQuadrado}</span> e depois em <b>Adicionar</b>.</div></li>
+    <li><span class="n">4</span><div>Feche o Safari e abra o portal pelo novo ícone <b>Pastores</b> na tela do iPhone.</div></li>
+    <li><span class="n">5</span><div>Entre com a senha, toque em <b>Ativar avisos</b> e depois em <b>Permitir</b>.</div></li>
+  </ol>
+  <p class="nota">É preciso ter o <b>iOS 16.4 ou mais recente</b> (Ajustes › Geral › Sobre › Versão do iOS). Pelo Safari comum, sem adicionar à Tela de Início, o iPhone não recebe os avisos.</p>`;
+
+async function abrirAvisos(){
+  const sit = await situacaoAvisos();
+  let corpo = "";
+  if(sit === "ios-instalar"){
+    corpo = `<h2>Avisos no iPhone</h2><p class="intro">Para receber o aviso de aniversário no seu iPhone, siga estes passos uma única vez:</p>${PASSOS_IPHONE}`;
+  } else if(sit === "sem-suporte"){
+    corpo = `<h2>Avisos no celular</h2><p class="intro">Este navegador não consegue receber avisos.</p>
+      <ul class="dicas">${EH_IOS ? `<li>Atualize o iPhone para o <b>iOS 16.4 ou mais recente</b> e abra o portal pelo ícone da Tela de Início.</li>` : `<li>No Android, abra o portal pelo <b>Google Chrome</b>.</li><li>No computador, use o Chrome, o Edge ou o Firefox.</li>`}</ul>`;
+  } else if(sit === "bloqueado"){
+    corpo = `<h2>Avisos bloqueados</h2><p class="intro">Os avisos do portal foram recusados neste celular. Para liberar:</p>
+      <ul class="dicas">${EH_IOS ? `<li>Abra <b>Ajustes › Notificações › Pastores</b> e ative <b>Permitir Notificações</b>.</li>` :
+        `<li>No Chrome, toque no <b>cadeado</b> ao lado do endereço › <b>Permissões</b> › <b>Notificações</b> › <b>Permitir</b>.</li><li>Se o portal estiver instalado: segure o ícone › <b>Informações do app</b> › <b>Notificações</b> › ative.</li>`}
+      <li>Depois, volte aqui e toque em <b>Ativar avisos</b>.</li></ul>
+      <div class="rodape"><button class="btn full" data-ativar-avisos>Ativar avisos</button></div>`;
+  } else if(sit === "ativo"){
+    corpo = `<h2>Avisos ativados ✓</h2><p class="intro">Este celular recebe um aviso às <b>8h</b> sempre que for aniversário de um pastor.</p>
+      <div class="rodape coluna"><button class="btn full" data-testar-avisos>Enviar um aviso de teste</button>
+      <button class="btn danger full" data-desativar-avisos>Desativar avisos neste celular</button></div>`;
+  } else {
+    corpo = `<h2>Avisos no celular</h2><p class="intro">Receba um aviso às <b>8h</b> quando for aniversário de um pastor, mesmo com o portal fechado.</p>
+      ${EH_ANDROID && !INSTALADO() ? `<p class="nota">Dica: adicione o portal à tela inicial (menu ⋮ › <b>Adicionar à tela inicial</b>) para usá-lo como aplicativo.</p>` : ""}
+      <div class="rodape"><button class="btn full" data-ativar-avisos>Ativar avisos</button></div>`;
+  }
+  $("#modalRaiz").innerHTML = `<div class="sheet-fundo" id="sheetFundo"><div class="sheet avisos"><div class="alca"></div>${corpo}</div></div>`;
+  $("#sheetFundo").addEventListener("click", e => { if(e.target.id === "sheetFundo") fecharModal(); });
+}
+
+async function ativarAvisos(botao){
+  if(DEMO){ toast("Os avisos funcionam só no portal publicado."); return; }
+  if(EH_IOS && !INSTALADO()) return abrirAvisos();
+  if(!TEM_PUSH) return abrirAvisos();
+  if(botao){ botao.disabled = true; botao.textContent = "Ativando…"; }
+  try{
+    const permissao = await Notification.requestPermission();   // precisa ser o primeiro passo após o toque
+    if(permissao !== "granted"){ await abrirAvisos(); return; }
+    const reg = registroSW || await navigator.serviceWorker.register("sw.js");
+    await navigator.serviceWorker.ready;
+    let sub = await reg.pushManager.getSubscription();
+    if(!sub) sub = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: chaveBytes(CONFIG.VAPID_PUBLICA) });
+    await api.registrarPush(sub.toJSON(), EH_IOS ? "ios" : EH_ANDROID ? "android" : "outro");
+    try{ await api.testarPush(sub.endpoint); }catch(_){}
+    fecharModal(); toast("Avisos ativados! ✓");
+    $("#cartaoAvisos") && ($("#cartaoAvisos").innerHTML = "");
+  }catch(err){
+    console.error(err);
+    toast("Não foi possível ativar os avisos. Tente novamente.");
+    if(botao){ botao.disabled = false; botao.textContent = "Ativar avisos"; }
+  }
+}
+async function testarAvisos(botao){
+  const sub = await inscricaoAtual(); if(!sub) return abrirAvisos();
+  botao.disabled = true; botao.textContent = "Enviando…";
+  try{ await api.registrarPush(sub.toJSON(), EH_IOS ? "ios" : EH_ANDROID ? "android" : "outro"); await api.testarPush(sub.endpoint); toast("Aviso de teste enviado!"); }
+  catch(_){ toast("Não foi possível enviar o teste."); }
+  botao.disabled = false; botao.textContent = "Enviar um aviso de teste";
+}
+async function desativarAvisos(){
+  const sub = await inscricaoAtual();
+  if(sub){ try{ await api.removerPush(sub.endpoint); }catch(_){} try{ await sub.unsubscribe(); }catch(_){} }
+  fecharModal(); toast("Avisos desativados neste celular.");
+}
+// ao entrar, garante que o celular já inscrito continue registrado no banco
+async function revalidarAvisos(){
+  if(DEMO || !TEM_PUSH || Notification.permission !== "granted") return;
+  const sub = await inscricaoAtual();
+  if(sub) api.registrarPush(sub.toJSON(), EH_IOS ? "ios" : EH_ANDROID ? "android" : "outro").catch(() => {});
+}
 
 // Mantém a pessoa conectada ao reabrir o portal
 api.papelDaSessao().then(p => { if(p) abrirPortal(p); }).catch(()=>{});
