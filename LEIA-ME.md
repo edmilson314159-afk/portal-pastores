@@ -4,15 +4,22 @@ Arquivos:
 - `index.html` – o portal inteiro
 - `logo-maranata-branca.png` e `logo-maranata-azul.png` – logo com fundo transparente (usada no portal)
 - `supabase.sql` – banco de dados e regras de acesso
-- `manifest.webmanifest`, `icone-180.png`, `icone-192.png`, `icone-512.png` – permitem instalar o portal
+- `manifest.webmanifest`, `icone-verde-180.png`, `icone-verde-192.png`, `icone-verde-512.png` – permitem instalar o portal
   na tela inicial do celular, como um aplicativo
+- `sw.js` – recebe os avisos (push) no celular, mesmo com o portal fechado
+- `supabase/functions/pastores-aniversarios/` – cópia da função que envia os avisos (já publicada no Supabase;
+  não precisa subir no GitHub)
 
 Sem configurar nada, o `index.html` abre em **modo demonstração**
 (senha dos pastores: `maranata`; administrador: qualquer e-mail com a senha `admin`).
 
 ## Abas
-Atas · Escala de Pregação · Manual do Membro · Informes · Aniversariantes · Agenda · Logos
+Nossa Família · Atas · Escala de Pregação · Manual do Membro · Informes · Aniversariantes · Agenda
 
+- **Nossa Família:** painel "Somos uma grande família" com o total de membros e células e a barra
+  "X de 16 igrejas já enviaram". Cada pastor escolhe a igreja, informa endereço, membros, células e o
+  próprio nome (lançamento único; dá para corrigir). Cada envio fica no histórico, que só os
+  administradores veem. Administradores podem adicionar, renomear e excluir igrejas.
 - **Atas:** aceitam só PDF ou Word (.docx). Ao enviar, o portal lê o texto do documento
   e guarda para a busca. Fotos, PDFs digitalizados e o .doc antigo são recusados com aviso.
   A busca encontra o assunto no título, no resumo e no conteúdo da ata (ignora acentos)
@@ -55,3 +62,13 @@ use também "Sign out user" nesse mesmo usuário.
 - **Android (Chrome):** abra o link do portal > menu ⋮ > **Adicionar à tela inicial** / **Instalar app**.
 - **iPhone (Safari):** abra o link > botão Compartilhar > **Adicionar à Tela de Início**.
 O portal passa a abrir em tela cheia, com o ícone da Maranata.
+
+## Avisos de aniversário no celular (push)
+- Todo dia às **8h** (Fortaleza) o Supabase verifica os aniversariantes do dia e envia um aviso
+  para todos os celulares que ativaram: "🎉 Hoje é aniversário de Fulano".
+- Cada pastor ativa uma vez, no próprio celular: cartão **Receba os aniversários no celular**
+  na tela inicial, ou **Mais › Avisos no celular**. Lá também há "Enviar um aviso de teste".
+- **Android:** funciona pelo Chrome (instalar na tela inicial é recomendado).
+- **iPhone:** só funciona com o portal **adicionado à Tela de Início** e com **iOS 16.4+**;
+  o portal mostra o passo a passo automaticamente para quem abre pelo iPhone.
+- Se o pastor recusar a permissão, apagar os dados do navegador ou remover o ícone, ele ativa de novo.
